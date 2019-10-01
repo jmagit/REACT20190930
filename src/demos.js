@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import Contador from "./contador";
 
 export function Saluda(props) {
   if (props.tipo === 0) return <h1>Adios {props.nombre}</h1>;
@@ -91,14 +92,19 @@ export default class Demos extends Component {
   static defaultProps = {
     delta: 5
   };
-
+  constructor(props) {
+    super(props);
+    this.state = { valor: 1 };
+  }
   render() {
     let saludo = <h1>Adios</h1>;
     return (
       <div>
-        <Lisado />
+        <Contador init={1} onCambia={rslt => this.setState({ valor: rslt })} />
+        {/* <Lisado /> */}
         <Card titulo="Esto es una tarjeta">
-          El delta es: {this.props.delta}
+          El valor es: {this.state.valor}
+          <Saluda nombre={this.state.valor} />
           <Saluda nombre={this.props.destinatario} />
           PropTypes exporta una gama de validadores que se pueden usar para
           garantizar que los datos que reciba sean válidos. Cuando se
