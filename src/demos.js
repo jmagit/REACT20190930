@@ -28,6 +28,20 @@ function UnsortedList(props) {
     </ul>
   );
 }
+
+function MiSelect(props) {
+  return (
+    <select>
+      <option value="">Selecciona una opción</option>
+      {props.listado &&
+        props.listado.map(item => (
+          <option value={props.value ? item[props.value] : item[props.text]}>
+            {item[props.text]}
+          </option>
+        ))}
+    </select>
+  );
+}
 export class Lisado extends Component {
   constructor(props) {
     super(props);
@@ -43,18 +57,26 @@ export class Lisado extends Component {
   }
   render() {
     return (
-      <ul>
-        {this.lisado.map(item => (
-          <li key={item.id}>
-            {item.nombre}
-            <UnsortedList
-              listado={item.municipios}
-              value="nombre"
-              text="nombre"
-            />
-          </li>
-        ))}
-      </ul>
+      <React.Fragment>
+        <MiSelect
+          name="cbProvincias"
+          listado={this.lisado}
+          value="id"
+          text="nombre"
+        />
+        <ul>
+          {this.lisado.map(item => (
+            <li key={item.id}>
+              {item.nombre}
+              <UnsortedList
+                listado={item.municipios}
+                value="nombre"
+                text="nombre"
+              />
+            </li>
+          ))}
+        </ul>
+      </React.Fragment>
     );
   }
 }
