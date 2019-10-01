@@ -2,6 +2,7 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import Demos, { Saluda } from "./demos";
+import Calculadora from "./calculadora";
 
 function App() {
   return (
@@ -21,8 +22,15 @@ function App() {
           Learn React
         </a>
       </header>
-      <Demos destinatario="Madrid" init={0} delta={Saluda({ nombre: "tu" })} />
-      <Saluda />
+      <div className="container-fluid">
+        <Calculadora />
+        <Demos
+          destinatario="Madrid"
+          init={0}
+          delta={Saluda({ nombre: "tu" })}
+        />
+        <Saluda />
+      </div>
     </div>
   );
 }

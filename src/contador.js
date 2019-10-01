@@ -17,7 +17,7 @@ export default class Contador extends Component {
     this.sube = function() {
       this.calcula(this.props.delta);
     };
-    this.baja.bind(this);
+    this.baja = this.baja.bind(this);
   }
   calcula(delta) {
     this.setState((perv, props) => {
@@ -35,7 +35,7 @@ export default class Contador extends Component {
       <div>
         <h1>{this.state.contador}</h1>
         <p>
-          <input type="button" value="-" onClick={this.baja.bind(this)} />
+          <input type="button" value="-" onClick={this.baja} />
           <input type="button" value="+" onClick={this.sube.bind(this)} />
           <input
             type="button"
