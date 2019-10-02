@@ -5,10 +5,14 @@ export default class Contador extends Component {
   static propTypes = {
     init: PropTypes.number.isRequired,
     delta: PropTypes.number,
+    min: PropTypes.number,
+    max: PropTypes.number,
     onCambia: PropTypes.func
   };
   static defaultProps = {
-    delta: 1
+    delta: 1,
+    min: Number.MIN_SAFE_INTEGER,
+    max: Number.MAX_SAFE_INTEGER
   };
   constructor(props) {
     super(props);
@@ -22,6 +26,7 @@ export default class Contador extends Component {
   calcula(delta) {
     this.setState((perv, props) => {
       const nuevo = perv.contador + delta;
+      if (this.props.min > nuevo || nuevo > this.props.max) return {};
       if (this.props.onCambia) this.props.onCambia(nuevo);
       return { contador: nuevo };
     });

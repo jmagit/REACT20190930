@@ -3,6 +3,8 @@ import logo from "./logo.svg";
 import "./App.css";
 import Demos, { Saluda } from "./demos";
 import Calculadora from "./calculadora";
+import FotoMuro from "./fotos";
+import ErrorBoundary from "./ErrorBoundary";
 
 function App() {
   return (
@@ -22,15 +24,18 @@ function App() {
           Learn React
         </a> */}
       </header>
-      <div className="container-fluid">
-        {/* <Calculadora coma /> */}
+      <ErrorBoundary>
+        <div className="container-fluid">
+          <FotoMuro />
+          {/* <Calculadora coma /> 
         <Demos
           destinatario="Madrid"
           init={0}
           delta={Saluda({ nombre: "tu" })}
         />
-        {/* <Saluda /> */}
-      </div>
+        <Saluda /> */}
+        </div>
+      </ErrorBoundary>
     </div>
   );
 }
