@@ -161,6 +161,6 @@ export default class Demos extends Component {
     this.btnSalir.focus();
   }
   componentWillUnmount() {
-    console.warn("");
+    console.warn("componentWillUnmount");
   }
 }

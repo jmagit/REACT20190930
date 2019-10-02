@@ -88,6 +88,7 @@ export default class Calculadora extends Component {
     return (
       <table className="Calculadora">
         <thead>
+          {" "}
           {this.state.resumen && <Resumen resumen={this.state.resumen} />}
           <Pantalla pantalla={this.state.pantalla} coma={this.props.coma} />
         </thead>

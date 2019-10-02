@@ -59,12 +59,11 @@ export default class FotoMuro extends Component {
     setInterval(() => {
       const f = Math.floor(Math.random() * this.state.listado.length);
       const c = Math.floor(Math.random() * this.state.listado[0].length);
-      console.log(f + "-" + c);
       if (!this.state.listado[f][c]) this.cambia(f, c);
-    }, 500);
+    }, 1000);
   }
   render() {
-    // if (this.state.listado[0][0]) throw new Error("Es el cero");
+    if (this.state.listado[0][0]) throw new Error("Es el cero");
     const rslt = this.state.listado.map((fila, index) => {
       const tamaño = {
         height: this.state.dim,
@@ -83,7 +82,7 @@ export default class FotoMuro extends Component {
                   foto={celda}
                   titulo={index + 1 + "-" + (subindex + 1)}
                   dim={this.state.dim}
-                  onClick={this.anula.bind(this, index, subindex)}
+                  onClick={e => this.anula.bind(this, index, subindex)}
                 >
                   Descargado de {celda}
                 </FotoCard>
