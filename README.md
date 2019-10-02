@@ -70,3 +70,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 http://placeimg.com/
 
 http://lorempixel.com/
+
+https://loremflickr.com/
+
+https://picsum.photos/
