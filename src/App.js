@@ -9,7 +9,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>Hola Mundoooo</p>
+        {/* <p>Hola Mundoooo</p>
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
@@ -20,16 +20,16 @@ function App() {
           rel="noopener noreferrer"
         >
           Learn React
-        </a>
+        </a> */}
       </header>
       <div className="container-fluid">
-        <Calculadora />
+        {/* <Calculadora coma /> */}
         <Demos
           destinatario="Madrid"
           init={0}
           delta={Saluda({ nombre: "tu" })}
         />
-        <Saluda />
+        {/* <Saluda /> */}
       </div>
     </div>
   );

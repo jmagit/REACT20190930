@@ -5,14 +5,14 @@ import "./calculadora.css";
 const Pantalla = props => (
   <tr>
     <th colSpan="4" className="Pantalla">
-      {props.pantalla.replace(/\./g, ",")}
+      {props.coma ? props.pantalla.replace(/\./g, ",") : props.pantalla}
     </th>
   </tr>
 );
 const Resumen = props => (
   <tr>
     <th colSpan="4" className="Resumen">
-      {props.resumen.replace(/\./g, ",")}
+      {props.coma ? props.resumen.replace(/\./g, ",") : props.resumen}
     </th>
   </tr>
 );
@@ -37,9 +37,12 @@ class BtnCalcular extends Component {
 export default class Calculadora extends Component {
   static propTypes = {
     value: PropTypes.number,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    coma: PropTypes.bool
   };
-
+  static defaultProps = {
+    coma: false
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -86,7 +89,7 @@ export default class Calculadora extends Component {
       <table className="Calculadora">
         <thead>
           {this.state.resumen && <Resumen resumen={this.state.resumen} />}
-          <Pantalla pantalla={this.state.pantalla} />
+          <Pantalla pantalla={this.state.pantalla} coma={this.props.coma} />
         </thead>
         <tbody>
           <tr>
@@ -135,7 +138,11 @@ export default class Calculadora extends Component {
           <tr>
             <BtnCalcular css="btnDigito" texto="±" onClick={this.cambiaSigno} />
             <BtnCalcular css="btnDigito" texto="0" onClick={this.ponDijito} />
-            <BtnCalcular css="btnDigito" texto="," onClick={this.ponComa} />
+            <BtnCalcular
+              css="btnDigito"
+              texto={this.props.coma ? "," : "."}
+              onClick={this.ponComa}
+            />
             <BtnCalcular css="btnOperar" texto="=" onClick={this.calcula} />
           </tr>
         </tbody>

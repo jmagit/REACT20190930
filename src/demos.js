@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Contador from "./contador";
+import Calculadora from "./calculadora";
 
 export function Saluda(props) {
   if (props.tipo === 0) return <h1>Adios {props.nombre}</h1>;
@@ -94,13 +95,49 @@ export default class Demos extends Component {
   };
   constructor(props) {
     super(props);
-    this.state = { valor: 1 };
+    this.state = { valor: 1, coma: true };
+    console.warn("constructor");
+  }
+  componentWillMount() {
+    console.warn("componentWillMount");
+  }
+  componentWillReceiveProps(next_props) {
+    console.warn("componentWillReceiveProps");
+  }
+  shouldComponentUpdate(next_props, next_state) {
+    console.warn("shouldComponentUpdate");
+    return true;
+  }
+  componentWillUpdate(next_props, next_state) {
+    console.warn("componentWillUpdate");
   }
   render() {
+    console.warn("render");
     let saludo = <h1>Adios</h1>;
     return (
       <div>
-        <Contador init={1} onCambia={rslt => this.setState({ valor: rslt })} />
+        <Calculadora
+          coma={this.state.coma}
+          value={this.state.valor}
+          onChange={rslt => this.setState({ valor: rslt })}
+        />
+        <input
+          type="button"
+          value="coma"
+          onClick={e => this.setState({ coma: true })}
+        />
+        <input
+          type="button"
+          value="punto"
+          onClick={e => this.setState({ coma: false })}
+          ref={tag => {
+            this.btnSalir = tag;
+          }}
+        />
+        <Contador
+          init={this.state.valor}
+          onCambia={rslt => this.setState({ valor: rslt })}
+        />
         {/* <Lisado /> */}
         <Card titulo="Esto es una tarjeta">
           El valor es: {this.state.valor}
@@ -114,5 +151,16 @@ export default class Demos extends Component {
         </Card>
       </div>
     );
+  }
+  componentDidMount() {
+    console.warn("componentDidMount");
+    this.btnSalir.focus();
+  }
+  componentDidUpdate(next_props, next_state) {
+    console.warn("componentDidUpdate");
+    this.btnSalir.focus();
+  }
+  componentWillUnmount() {
+    console.warn("");
   }
 }
