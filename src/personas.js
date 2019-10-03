@@ -57,6 +57,7 @@ export default class PersonasMnt extends Component {
       .catch(err => console.error(err));
   }
   delete(key) {
+    if (!window.confirm("¿Seguro?")) return;
     this.setState({ loading: true });
     axios
       .delete(this.url + `/${key}`)
@@ -93,6 +94,7 @@ export default class PersonasMnt extends Component {
       case "edit":
         return (
           <PersonasForm
+            isAdd={this.state.modo === "add"}
             elemento={this.state.elemento}
             onCancel={e => this.cancel()}
             onSend={e => this.send(e)}
@@ -139,7 +141,7 @@ export class PersonasList extends Component {
         </thead>
         <tbody>
           {this.props.listado.map(item => (
-            <tr>
+            <tr key={item.id}>
               <td>
                 {item.nombre} {item.apellidos}
               </td>
@@ -255,6 +257,27 @@ export class PersonasForm extends Component {
           this.form = tag;
         }}
       >
+        {this.props.isAdd && (
+          <div className="form-group">
+            <label htmlFor="id">Código</label>
+            <input
+              type="number"
+              className="form-control"
+              id="id"
+              name="id"
+              value={this.state.elemento.id}
+              onChange={this.handleChange}
+              required
+            />
+            <ValidationMessage msg={this.state.msgErr.id} />
+          </div>
+        )}
+        {!this.props.isAdd && (
+          <div className="form-group">
+            <label>Código</label>
+            {this.state.elemento.id}
+          </div>
+        )}
         <div className="form-group">
           <label htmlFor="nombre">Nombre</label>
           <input
@@ -287,7 +310,7 @@ export class PersonasForm extends Component {
         <div className="form-group">
           <label htmlFor="edad">Edad</label>
           <input
-            type="text"
+            type="number"
             className="form-control"
             id="edad"
             name="edad"
