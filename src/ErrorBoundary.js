@@ -1,5 +1,14 @@
 import React, { Component } from "react";
 
+export class ValidationMessage extends React.Component {
+  render() {
+    if (this.props.msg) {
+      return <span className="errorMsg">{this.props.msg}</span>;
+    }
+    return null;
+  }
+}
+
 export default class ErrorBoundary extends Component {
   constructor(props) {
     super(props);

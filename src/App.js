@@ -14,7 +14,7 @@ export default class App extends Component {
       {
         texto: "Personas",
         componente: (
-          <PersonasForm elemento={{ nombre: "Pepito", apellidos: "Grillo" }} />
+          <PersonasForm elemento={{ nombre: "", apellidos: "Grillo" }} />
         )
       },
       {
