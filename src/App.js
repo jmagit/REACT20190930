@@ -5,17 +5,24 @@ import Demos, { Saluda } from "./demos";
 import Calculadora from "./calculadora";
 import FotoMuro from "./fotos";
 import ErrorBoundary from "./ErrorBoundary";
-import PersonasForm from "./personas";
+import PersonasMnt from "./personas";
+import Blog from "./blog";
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.menu = [
       {
+        texto: "Blog",
+        componente: <Blog />
+      },
+      {
         texto: "Personas",
-        componente: (
-          <PersonasForm elemento={{ nombre: "", apellidos: "Grillo" }} />
-        )
+        componente: <PersonasMnt />
+      },
+      {
+        texto: "Calculadora",
+        componente: <Calculadora />
       },
       {
         texto: "Demos",
@@ -53,6 +60,7 @@ export default class App extends Component {
           <p>
             {this.menu.map((item, index) => (
               <input
+                key={index}
                 type="button"
                 value={item.texto}
                 onClick={this.selecciona.bind(this, index)}

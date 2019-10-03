@@ -113,7 +113,7 @@ export default class Demos extends Component {
   }
   render() {
     console.warn("render");
-    let saludo = <h1>Adios</h1>;
+    //let saludo = <h1>Adios</h1>;
     return (
       <div>
         <Calculadora

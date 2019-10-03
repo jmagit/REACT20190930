@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import loading from "./loading.gif";
 
 export class ValidationMessage extends React.Component {
   render() {
@@ -8,7 +9,40 @@ export class ValidationMessage extends React.Component {
     return null;
   }
 }
-
+export class ErrorMessage extends React.Component {
+  render() {
+    if (this.props.msg) {
+      return (
+        <div
+          className="alert alert-danger alert-dismissible fade show"
+          role="alert"
+        >
+          {this.props.msg}
+          <button
+            type="button"
+            className="close"
+            data-dismiss="alert"
+            aria-label="Close"
+            onClick={e => this.props.onClear && this.props.onClear()}
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      );
+    }
+    return null;
+  }
+}
+export class Esperando extends React.Component {
+  render() {
+    return (
+      <div>
+        <div className="ajax-wait"></div>
+        <img src={loading} alt="Cargando ..." />
+      </div>
+    );
+  }
+}
 export default class ErrorBoundary extends Component {
   constructor(props) {
     super(props);

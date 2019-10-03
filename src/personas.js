@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { ValidationMessage } from "./ErrorBoundary";
+import { ValidationMessage, Esperando } from "./ErrorBoundary";
 
 export default class PersonasMnt extends Component {
   constructor(props) {
@@ -68,6 +68,7 @@ export default class PersonasMnt extends Component {
     this.list();
   }
   send(elemento) {
+    // eslint-disable-next-line default-case
     switch (this.state.modo) {
       case "add":
         axios
@@ -88,7 +89,7 @@ export default class PersonasMnt extends Component {
   }
 
   render() {
-    if (this.state.loading) return <h1>Cargando ....</h1>;
+    if (this.state.loading) return <Esperando />;
     switch (this.state.modo) {
       case "add":
       case "edit":
@@ -118,7 +119,6 @@ export default class PersonasMnt extends Component {
           />
         );
     }
-    return <h1>Mantenimiento de personas</h1>;
   }
 }
 
@@ -126,7 +126,7 @@ export class PersonasList extends Component {
   render() {
     return (
       <table className="table table-striped">
-        <thead class="thead-dark">
+        <thead className="thead-dark">
           <tr>
             <th>Nombre</th>
             <th>
@@ -229,6 +229,7 @@ export class PersonasForm extends Component {
         if (cntr.name) {
           errors[cntr.name] = cntr.validationMessage;
           if (!errors[cntr.name])
+            // eslint-disable-next-line default-case
             switch (cntr.name) {
               case "nombre":
                 errors[cntr.name] =
