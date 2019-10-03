@@ -5,11 +5,18 @@ import Demos, { Saluda } from "./demos";
 import Calculadora from "./calculadora";
 import FotoMuro from "./fotos";
 import ErrorBoundary from "./ErrorBoundary";
+import PersonasForm from "./personas";
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.menu = [
+      {
+        texto: "Personas",
+        componente: (
+          <PersonasForm elemento={{ nombre: "Pepito", apellidos: "Grillo" }} />
+        )
+      },
       {
         texto: "Demos",
         componente: (
@@ -20,7 +27,6 @@ export default class App extends Component {
           />
         )
       },
-      { texto: "Calculadora", componente: <Calculadora coma /> },
       { texto: "Muro", componente: <FotoMuro /> }
     ];
     this.state = { componenteActual: this.menu[0].componente };
@@ -44,13 +50,15 @@ export default class App extends Component {
         >
           Learn React
         </a> */}
-          {this.menu.map((item, index) => (
-            <input
-              type="button"
-              value={item.texto}
-              onClick={this.selecciona.bind(this, index)}
-            />
-          ))}
+          <p>
+            {this.menu.map((item, index) => (
+              <input
+                type="button"
+                value={item.texto}
+                onClick={this.selecciona.bind(this, index)}
+              />
+            ))}
+          </p>
         </header>
         <ErrorBoundary>
           <div className="container-fluid">
