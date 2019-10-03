@@ -143,7 +143,7 @@ export class PersonasList extends Component {
           {this.props.listado.map(item => (
             <tr key={item.id}>
               <td>
-                {item.nombre} {item.apellidos}
+                {item["nombre"]} {item.apellidos}
               </td>
               <td>
                 <input

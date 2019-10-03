@@ -404,7 +404,7 @@ class BlogForm extends Component {
           >
             Enviar
           </button>
-          {!this.props.isAdd && (
+          {this.props.onDelete && (
             <button
               type="button"
               className="btn btn-outline-danger"
