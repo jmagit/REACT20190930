@@ -7,7 +7,11 @@ import FotoMuro from "./fotos";
 import ErrorBoundary from "./ErrorBoundary";
 import PersonasMnt from "./personas";
 import Blog from "./blog";
+import { BrowserRouter, Switch, Route, Redirect, Link } from "react-router-dom";
 
+function PageNotFound(props) {
+  return <h1>404 Page not found!</h1>;
+}
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -42,46 +46,54 @@ export default class App extends Component {
   }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          {/* <p>Hola Mundoooo</p>
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a> */}
-          <p>
-            {this.menu.map((item, index) => (
-              <input
-                key={index}
-                type="button"
-                value={item.texto}
-                onClick={this.selecciona.bind(this, index)}
-              />
-            ))}
-          </p>
-        </header>
-        <ErrorBoundary>
-          <div className="container-fluid">
-            {this.state.componenteActual}
-            {/* <FotoMuro />
-             <Calculadora coma /> 
-        <Demos
-          destinatario="Madrid"
-          init={0}
-          delta={Saluda({ nombre: "tu" })}
-        />
-        <Saluda /> */}
-          </div>
-        </ErrorBoundary>
-      </div>
+      <BrowserRouter>
+        <div className="App">
+          <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+            <p>
+              <Link to="/demos">demos</Link> |&nbsp;
+              <Link to="/chisme/de/hacer/numeros">calculadora</Link> |&nbsp;
+              <Link to="/personas">personas</Link> |&nbsp;
+              <Link to="/personas/2">pepito</Link> |&nbsp;
+              <Link to="/blog">blog</Link> |&nbsp;
+              <Link to="/calculadora">calculadora</Link> |&nbsp;
+              <Link to="/falsa">falsa</Link>
+            </p>
+          </header>
+          <ErrorBoundary>
+            <div className="container-fluid">
+              <Switch>
+                <Route
+                  path="/demos"
+                  render={() => (
+                    <Demos
+                      destinatario="Madrid"
+                      init={0}
+                      delta={Saluda({ nombre: "tu" })}
+                    />
+                  )}
+                />
+                <Route
+                  path="/chisme/de/hacer/numeros"
+                  component={Calculadora}
+                  exact
+                />
+                <Route path="/personas" component={PersonasMnt} exact />
+                <Route path="/personas/:id" component={PersonasMnt} exact />
+                <Route path="/blog" component={Blog} exact />
+                <Redirect from="/" to="/demos" exact />
+                <Redirect
+                  from="/calculadora"
+                  to="/chisme/de/hacer/numeros"
+                  exact
+                  push
+                />
+                <Route component={PageNotFound} exact />
+              </Switch>
+            </div>
+          </ErrorBoundary>
+        </div>
+      </BrowserRouter>
     );
   }
 }

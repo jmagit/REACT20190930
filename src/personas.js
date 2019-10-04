@@ -85,7 +85,9 @@ export default class PersonasMnt extends Component {
     }
   }
   componentDidMount() {
-    this.list();
+    if (this.props.match && this.props.match.params.id)
+      this.view(this.props.match.params.id);
+    else this.list();
   }
 
   render() {
