@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { ValidationMessage, Esperando } from "./ErrorBoundary";
+import * as db from "./my-store";
 
 export default class PersonasMnt extends Component {
   constructor(props) {
@@ -21,7 +22,10 @@ export default class PersonasMnt extends Component {
           loading: false
         });
       })
-      .catch(err => console.error(err));
+      .catch(err => {
+        db.AddErrNotifyCmd(err);
+        this.setState({ loading: false });
+      });
   }
   add() {
     this.setState({
@@ -41,7 +45,10 @@ export default class PersonasMnt extends Component {
         });
         this.idOriginal = key;
       })
-      .catch(err => console.error(err));
+      .catch(err => {
+        db.AddErrNotifyCmd(err);
+        this.setState({ loading: false });
+      });
   }
   view(key) {
     this.setState({ loading: true });
@@ -54,7 +61,10 @@ export default class PersonasMnt extends Component {
           loading: false
         });
       })
-      .catch(err => console.error(err));
+      .catch(err => {
+        db.AddErrNotifyCmd(err);
+        this.setState({ loading: false });
+      });
   }
   delete(key) {
     if (!window.confirm("¿Seguro?")) return;
@@ -62,7 +72,10 @@ export default class PersonasMnt extends Component {
     axios
       .delete(this.url + `/${key}`)
       .then(resp => this.list())
-      .catch(err => console.error(err));
+      .catch(err => {
+        db.AddErrNotifyCmd(err);
+        this.setState({ loading: false });
+      });
   }
   cancel() {
     this.list();
@@ -74,13 +87,19 @@ export default class PersonasMnt extends Component {
         axios
           .post(this.url, elemento)
           .then(data => this.cancel())
-          .catch(err => console.error(err));
+          .catch(err => {
+            db.AddErrNotifyCmd(err);
+            this.setState({ loading: false });
+          });
         break;
       case "edit":
         axios
           .put(this.url + `/${this.idOriginal}`, elemento)
           .then(data => this.cancel())
-          .catch(err => console.error(err));
+          .catch(err => {
+            db.AddErrNotifyCmd(err);
+            this.setState({ loading: false });
+          });
         break;
     }
   }

@@ -120,6 +120,9 @@ export default class Demos extends Component {
       <div>
         <CounterStored />
         <button onClick={e => CounterDownCmd()}>Baja</button>
+        <button onClick={e => store.AddNotify("Estos es una noticación")}>
+          Notifica
+        </button>
         <Calculadora
           coma={this.state.coma}
           value={this.state.valor}

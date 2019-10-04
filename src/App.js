@@ -9,43 +9,13 @@ import PersonasMnt from "./personas";
 import Blog from "./blog";
 import { BrowserRouter, Switch, Route, Redirect, Link } from "react-router-dom";
 import { CounterStored } from "./counter-strored";
-import { CounterUpCmd } from "./my-store";
+import { CounterUpCmd, store } from "./my-store";
+import { Notificaciones } from "./notificaciones";
 
 function PageNotFound(props) {
   return <h1>404 Page not found!</h1>;
 }
 export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.menu = [
-      {
-        texto: "Blog",
-        componente: <Blog />
-      },
-      {
-        texto: "Personas",
-        componente: <PersonasMnt />
-      },
-      {
-        texto: "Calculadora",
-        componente: <Calculadora />
-      },
-      {
-        texto: "Demos",
-        componente: (
-          <Demos
-            destinatario="Madrid"
-            init={0}
-            delta={Saluda({ nombre: "tu" })}
-          />
-        )
-      },
-      { texto: "Muro", componente: <FotoMuro /> }
-    ];
-    this.state = { componenteActual: this.menu[0].componente };
-    this.selecciona = index =>
-      this.setState({ componenteActual: this.menu[index].componente });
-  }
   render() {
     return (
       <BrowserRouter>
@@ -65,6 +35,7 @@ export default class App extends Component {
           </header>
           <ErrorBoundary>
             <div className="container-fluid">
+              <Notificaciones />
               <Switch>
                 <Route
                   path="/demos"
@@ -79,7 +50,7 @@ export default class App extends Component {
                 <Route
                   path="/count"
                   render={() => (
-                    <button onClick={e => CounterUpCmd()}>Sube</button>
+                    <button onClick={e => store.CounterUp()}>Sube</button>
                   )}
                 />
                 <Route
