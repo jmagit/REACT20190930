@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Contador from "./contador";
 import Calculadora from "./calculadora";
+import { CounterStored } from "./counter-strored";
+import { CounterDownCmd, store } from "./my-store";
 
 export function Saluda(props) {
   if (props.tipo === 0) return <h1>Adios {props.nombre}</h1>;
@@ -116,6 +118,8 @@ export default class Demos extends Component {
     //let saludo = <h1>Adios</h1>;
     return (
       <div>
+        <CounterStored />
+        <button onClick={e => CounterDownCmd()}>Baja</button>
         <Calculadora
           coma={this.state.coma}
           value={this.state.valor}
@@ -154,6 +158,11 @@ export default class Demos extends Component {
   }
   componentDidMount() {
     console.warn("componentDidMount");
+    this.unsubscribe = store.subscribe(() => {
+      this.setState({ valor: store.getState().contador });
+      console.log("Cambia estorage.");
+    });
+
     this.btnSalir.focus();
   }
   componentDidUpdate(next_props, next_state) {
@@ -162,5 +171,6 @@ export default class Demos extends Component {
   }
   componentWillUnmount() {
     console.warn("componentWillUnmount");
+    this.unsubscribe();
   }
 }

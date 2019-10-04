@@ -8,6 +8,8 @@ import ErrorBoundary from "./ErrorBoundary";
 import PersonasMnt from "./personas";
 import Blog from "./blog";
 import { BrowserRouter, Switch, Route, Redirect, Link } from "react-router-dom";
+import { CounterStored } from "./counter-strored";
+import { CounterUpCmd } from "./my-store";
 
 function PageNotFound(props) {
   return <h1>404 Page not found!</h1>;
@@ -58,6 +60,7 @@ export default class App extends Component {
               <Link to="/blog">blog</Link> |&nbsp;
               <Link to="/calculadora">calculadora</Link> |&nbsp;
               <Link to="/falsa">falsa</Link>
+              <Link to="/count">count</Link>
             </p>
           </header>
           <ErrorBoundary>
@@ -71,6 +74,12 @@ export default class App extends Component {
                       init={0}
                       delta={Saluda({ nombre: "tu" })}
                     />
+                  )}
+                />
+                <Route
+                  path="/count"
+                  render={() => (
+                    <button onClick={e => CounterUpCmd()}>Sube</button>
                   )}
                 />
                 <Route
